@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty Product Showcase</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: #fef7f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    /* Header Styles */
+    .header {
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #e85d75;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+      color: #4a4a4a;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.7;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: #fef7f0;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin: 0 0 1.5rem 0;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #2c2c2c;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin: 0 0 2.5rem 0;
+      line-height: 1.6;
+      opacity: 0.9;
+      color: #2c2c2c;
+    }
+
+    .cta-button {
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      background: #e85d75;
+      color: #ffffff;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Products Section */
+    .products-section {
+      padding: 5rem 2rem;
+      background: #ffffff;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin: 0 0 3rem 0;
+      font-weight: 700;
+      color: #2c2c2c;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      color: #2c2c2c;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+   .product-icon img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-card h3 {
+      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+      font-weight: 600;
+    }
+
+    .product-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 5rem 2rem;
+      background: #fef7f0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature-item {
+      text-align: center;
+      color: #2c2c2c;
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-item h4 {
+      font-size: 1.3rem;
+      margin: 0 0 0.75rem 0;
+      font-weight: 600;
+    }
+
+    .feature-item p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .footer p {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.8;
+      color: #2c2c2c;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+	
+	 .contact-form {
+      margin-top: 3rem;
+      background: #white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .contact-form label {
+      font-weight: bold;
+      color: #1e3a8a;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      background: #e85d75;
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: #334bb7;
+    }
+  </style>
+
+  <style>@view-transition { navigation: auto; }</style>
+</head>
+
+<body>
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="logo" id="logo">BeautyGlow</div>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#products" id="nav-products">Products</a></li>
+        <li><a href="#features" id="nav-features">Features</a></li>
+        <li><a href="#contact" id="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1 id="hero-headline">Discover Your Natural Radiance</h1>
+      <p id="hero-subtext">Premium beauty products designed to nourish, protect, and enhance your skin's natural beauty</p>
+      <button class="cta-button" id="cta-button">Shop Now</button>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section" id="products">
+    <h2 class="section-title" id="product-title">Our Signature Products</h2>
+    <div class="products-grid">
+
+      <div class="product-card" id="product-1">
+        <div class="product-icon">
+          <img src="1.jpg" alt="Product Image">
+        </div>
+		 <h3>Lip Therapy</h3>
+        <p>Nourishing lip balm for soft, smooth, and healthy-looking lips</p>
+      </div>
+
+      <div class="product-card" id="product-2">
+        <div class="product-icon">
+          <img src="2.jpg" alt="Product Image">
+        </div>
+        <h3>Intensive Care Lotion</h3>
+        <p>Deep moisturizing formula with micro-droplets of Vaseline jelly</p>
+      </div>
+
+      <div class="product-card" id="product-3">
+        <div class="product-icon">
+          <img src="3.jpg" alt="Product Image">
+        </div>
+         <h3>Aloe Soothing Gel Lotion</h3>
+        <p>Soothing gel enriched with aloe vera for instant skin relief</p>
+      </div>
+
+      <div class="product-card" id="product-4">
+        <div class="product-icon">
+          <img src="4.jpg" alt="Product Image">
+        </div>
+        <h3>Classic Petroleum Jelly</h3>
+        <p>Original healing jelly that locks in moisture and helps heal dry, cracked skin</p>
+      </div>
+
+      <div class="product-card" id="product-5">
+        <div class="product-icon">
+          <img src="7.jpg" alt="Product Image">
+        </div>
+        <h3>Sun Protection</h3>
+        <p>Daily SPF moisturizer to protect and hydrate your skin</p>
+      </div>
+
+      <div class="product-card" id="product-6">
+        <div class="product-icon">
+          <img src="6.jpg" alt="Product Image">
+        </div>
+        <h3>Night Repair</h3>
+        <p>Overnight treatment to restore and rejuvenate while you sleep</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="features-grid">
+
+      <div class="feature-item">
+        <h4>Dermatologist Tested</h4>
+        <p>Clinically proven formulas trusted by skin experts worldwide</p>
+      </div>
+
+      <div class="feature-item">
+        <h4>Natural Ingredients</h4>
+        <p>Made with carefully selected natural and nourishing components</p>
+      </div>
+
+      <div class="feature-item">
+        <h4>Sustainable</h4>
+        <p>Committed to eco-friendly practices and recyclable packaging</p>
+      </div>
+
+    </div>
+  </section>
+  
+  <div class="contact-form">
+      <h2 style="text-align:center; color:#333;">Send Us a Message</h2>
+		
+	<form class="card" id="contactForm">
+    <!-- Name must match {{name}} in EmailJS template -->
+    <input type="text" name="name" placeholder="Your Name" required>
+
+    <!-- Email must match {{email}} in EmailJS template -->
+    <input type="email" name="email" placeholder="Your Email" required>
+
+    <!-- Message optional -->
+    <textarea name="message" placeholder="Your Message"></textarea>
+
+    <button type="submit">Send Inquiry</button>
+</form>
+    </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <p id="footer-text">© 2024 BeautyGlow. Bringing out your natural beauty, one product at a time.</p>
+  </footer>
+
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+	
+// Dropdown toggle for click
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector(".dropdown-toggle");
+  const dropdown = document.querySelector(".dropdown");
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  });
+
+  // Close dropdown if clicking outside
+  document.addEventListener("click", () => {
+    dropdown.style.display = "none";
+  });
+});
+    emailjs.init("dlRoBC__Y-J_hO-K8"); // Your Public Key
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        // Collect form data
+        const formData = {
+            name: this.name.value,
+            email: this.email.value,
+            message: this.message.value,
+            company: "University of Rizal System" // fixed value for [Company Name]
+        };
+
+        emailjs.send("service_1l98iea", "template_43bu7tf", formData)
+            .then(() => {
+                alert("Your message has been sent!");
+                this.reset();
+            })
+            .catch((error) => {
+                console.error("EmailJS error:", error);
+                alert("Failed to send message. Check console for details.");
+            });
+    });
+    /* SAME HAMBURGER SCRIPT */
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.getElementById("nav-menu");
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("active");
+    });
+
+    document.querySelectorAll(".nav-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+      });
+    });
+
+</script>
+</html>
